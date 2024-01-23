@@ -1,7 +1,3 @@
-#include "lvgl.h"
-#include "lv_conf.h"
-#include "welcome_image.h"
-
 #ifdef __has_include
     #if __has_include("lvgl.h")
         #ifndef LV_LVGL_H_INCLUDE_SIMPLE
@@ -1001,6 +997,9 @@ const LV_ATTRIBUTE_MEM_ALIGN LV_ATTRIBUTE_LARGE_CONST LV_ATTRIBUTE_IMG_OVERVIEW 
 };
 
 const lv_img_dsc_t welcome_image = {
+  .header.cf = LV_IMG_CF_TRUE_COLOR,
+  .header.always_zero = 0,
+  .header.reserved = 0,
   .header.w = 240,
   .header.h = 240,
   .data_size = 240 * 240 * LV_COLOR_DEPTH / 8,
