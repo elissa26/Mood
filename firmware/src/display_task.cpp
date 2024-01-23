@@ -49,6 +49,7 @@ void DisplayTask::run() {
     tft_.setRotation(0);
     tft_.fillScreen(TFT_DARKGREEN);
 
+    showWelcomeImage();
     ledcSetup(LEDC_CHANNEL_LCD_BACKLIGHT, 5000, 16);
     ledcAttachPin(PIN_LCD_BACKLIGHT, LEDC_CHANNEL_LCD_BACKLIGHT);
     ledcWrite(LEDC_CHANNEL_LCD_BACKLIGHT, UINT16_MAX);
@@ -287,10 +288,18 @@ void DisplayTask::log(const char* msg) {
 }
 
 void DisplayTask::showWelcomeImage() {
+   Serial.println("showWelcomeImage: Beginn");
+
     lv_obj_t * scr = lv_disp_get_scr_act(NULL); // Holt den aktiven Bildschirm
+    if (scr != NULL) {
+        Serial.println("showWelcomeImage: Bildschirm gefunden");
+    } else {
+        Serial.println("showWelcomeImage: Kein aktiver Bildschirm");
+    }
     lv_obj_t * img = lv_img_create(scr);  // Erstellt ein Bild-Objekt
     lv_img_set_src(img, &welcome_image);       // Setzt das Bild
     lv_obj_align(img, LV_ALIGN_CENTER, 0, 0); // Zentriert das Bild
+    Serial.println("showWelcomeImage: Bild sollte angezeigt werden");
 }
 
 #endif

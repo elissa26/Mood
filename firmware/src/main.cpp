@@ -3,7 +3,7 @@
 #include "display_task.h"
 #include "interface_task.h"
 #include "motor_task.h"
-#include "welcome_image.h"
+
 
 #if SK_DISPLAY
 static DisplayTask display_task(0);
@@ -17,11 +17,11 @@ static MotorTask motor_task(1);
 InterfaceTask interface_task(0, motor_task, display_task_p);
 
 void setup() {
+  Serial.begin(9600);
   #if SK_DISPLAY
   display_task.setLogger(&interface_task);
   display_task.begin();
 
-  display_task.showWelcomeImage();
 
   // Connect display to motor_task's knob state feed
   motor_task.addListener(display_task.getKnobStateQueue());
@@ -36,6 +36,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("Loop läuft");
   // char buf[50];
   // static uint32_t last_stack_debug;
   // if (millis() - last_stack_debug > 1000) {
